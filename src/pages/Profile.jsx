@@ -71,7 +71,7 @@ function Profile() {
     userId: logId,
   };
 
-  // console.log("id", id);
+
 
 
 

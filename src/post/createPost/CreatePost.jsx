@@ -112,6 +112,7 @@ useEffect(() => {
       
     setFormData({ ...formData, img: "" });
     getPost()
+    setimage("")
       
     }
     catch(err){

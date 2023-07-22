@@ -72,6 +72,7 @@ function User_login() {
       if (res.data.massege === "login successful") {
         setTimeout(() => {
           navigate("/");
+          window.location.reload(false);
         }, 2000);
       }
     } catch (err) {
