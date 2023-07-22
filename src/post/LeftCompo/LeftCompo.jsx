@@ -64,6 +64,7 @@ if(userId !== "" ){
                 size="0.5x0.5"
                 name="Segun Adebayo"
                 w={300}
+                h={300}
                 src={userdata?.profilePicture}
               />
             </Box>
