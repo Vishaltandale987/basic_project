@@ -40,6 +40,7 @@ function Home() {
           display={{ base: "none", sm: "none", md: "none", lg: "block" }}
         >
           
+
           <LeftCompo />
         </Box>
           
