@@ -39,12 +39,13 @@ function Home() {
           w="25%"
           display={{ base: "none", sm: "none", md: "none", lg: "block" }}
         >
+          
           <LeftCompo />
         </Box>
           
           
           :console.log('a')
-          
+
         }
     
 
