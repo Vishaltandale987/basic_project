@@ -1,0 +1,42 @@
+.usercard{
+    display: flex;
+    width: 40vh;
+    gap: 2em;
+    box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
+    margin-top: 10px;
+    background-color: rgb(207, 181, 232);
+    border: 1px solid rgb(174, 17, 17);
+    border-radius: 5px;
+    padding: 10px;
+    
+  
+}
+.inputtag{
+    gap: 2em;
+    display: flex;
+    margin: auto;
+    text-align: center;
+    width: 50%;
+    position: absolute;
+    bottom: 0;
+    left: 15em;
+}
+.inputparent{
+    /* border: 1px solid red; */
+    height: 89vh;
+    position: relative;
+    width: 100%;
+}
+.status{
+    text-align: right;
+    border: 1px solid black;
+
+
+}
+#asa{
+    color: red;
+    text-align: left;
+    border: 1px solid black;
+
+
+}
