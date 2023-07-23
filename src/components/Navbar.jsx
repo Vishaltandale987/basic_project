@@ -67,7 +67,7 @@ function Navbar() {
           />
           <HStack spacing={8} alignItems={"center"}>
             <NavLink to="/">
-            <h1 className="logo">Facebook</h1>
+            <h1 className="logo">SnaP-HuB</h1>
 
             </NavLink>
             <HStack
