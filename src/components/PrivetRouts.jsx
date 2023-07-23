@@ -1,6 +1,8 @@
 import React from 'react'
 import { Navigate } from 'react-router-dom'
 
+
+
 function PrivetRouts({children}) {
        // get user
        let userId = localStorage.getItem("id");

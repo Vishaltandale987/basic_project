@@ -17,9 +17,9 @@ import {
 } from "@chakra-ui/react";
 import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
 import { Link, Navigate, useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { userAuthSignUP } from "../redux/userAuth/auth.actions";
+
 import axios from "axios";
+import { StageSpinner } from "react-spinners-kit";
 
 const initState = {
   username: "",
@@ -30,6 +30,8 @@ function User_signup() {
   const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState(initState);
   const navigate = useNavigate();
+  const [loader, setloader] = useState(false)
+
 
   const toast = useToast();
   const handleChange = (e) => {
@@ -41,6 +43,7 @@ function User_signup() {
     e.preventDefault();
 
     try {
+      setloader(true)
       let res = await axios.post(
         "https://new-facebook-server.vercel.app/user/register",
         formData
@@ -53,7 +56,7 @@ function User_signup() {
         duration: 4000,
         isClosable: false,
       });
-
+      setloader(false)
       if (res.data.message === "New user register") {
         setTimeout(() => {
           navigate("/userLogin");
@@ -65,13 +68,29 @@ function User_signup() {
   };
 
   return (
+    <>
+       { loader ?  <div style={{
+  position:"absolute",
+  zIndex:"1",
+  left:"38em",
+
+}}>  
+<StageSpinner  size={60} color="orange"/>
+
+  </div>: null}
     <Flex
       minH={"100vh"}
       align={"center"}
       justify={"center"}
       bg={useColorModeValue("gray.50", "gray.800")}
+      style={{
+        position:"relative"
+      }}
     >
+   
+
       <Stack spacing={8} mx={"auto"} maxW={"lg"} py={12} px={6}>
+   
         <Stack align={"center"}>
           <Heading fontSize={"4xl"} textAlign={"center"}>
             Sign up
@@ -161,6 +180,8 @@ function User_signup() {
         </Box>
       </Stack>
     </Flex>
+    </>
+
   );
 }
 

@@ -16,50 +16,46 @@ import {
   Spinner,
   InputGroup,
   InputRightElement,
+  useStatStyles,
 } from "@chakra-ui/react";
 import { NavLink, useNavigate } from "react-router-dom";
-import { userAuthLogin } from "../redux/userAuth/auth.actions";
-import { useDispatch, useSelector } from "react-redux";
+
 import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
 import axios from "axios";
+
+import { StageSpinner } from "react-spinners-kit";
+
 
 const initState = {
   email: "",
   password: "",
 };
 
-
-
 function User_login() {
   const [formData, setFormData] = useState(initState);
   const navigate = useNavigate();
   const toast = useToast();
-  const dispatch = useDispatch();
+  const [loader, setloader] = useState(false)
+ 
   const [showPassword, setShowPassword] = useState(false);
-  
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
 
-  
-
-
-
-
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
+      setloader(true)
       let res = await axios.post(
         "https://new-facebook-server.vercel.app/user/login",
         formData
       );
 
- 
-
-      localStorage.setItem('token',res.data.token)
-  localStorage.setItem('id',res.data.id)
+      localStorage.setItem("token", res.data.token);
+      localStorage.setItem("id", res.data.id);
 
       toast({
         position: "top",
@@ -68,7 +64,7 @@ function User_login() {
         duration: 4000,
         isClosable: false,
       });
-
+      setloader(false)
       if (res.data.massege === "login successful") {
         setTimeout(() => {
           navigate("/");
@@ -80,23 +76,33 @@ function User_login() {
     }
   };
 
-  
-
-
-
-
-
   return (
-    <Flex
+<>
+
+{ loader ?  <div style={{
+  position:"absolute",
+  zIndex:"1",
+  left:"38em",
+  top:"5em"
+
+}}>  
+<StageSpinner  size={60} color="orange"/>
+
+  </div>: null}
+
+      <Flex
       minH={"100vh"}
       align={"center"}
       justify={"center"}
       bg={useColorModeValue("gray.50", "gray.800")}
+      style={{
+        position:"relative"
+      }}
     >
       <Stack spacing={8} mx={"auto"} maxW={"lg"} py={12} px={6}>
+
         <Stack align={"center"}>
           <Heading fontSize={"4xl"}>Sign in to your account</Heading>
-
         </Stack>
         <Box
           rounded={"lg"}
@@ -113,12 +119,9 @@ function User_login() {
                 value={formData.email}
                 onChange={handleChange}
                 placeholder="Enter Email"
-
                 required
               />
             </FormControl>
-
-
 
             <FormControl id="password" isRequired>
               <FormLabel>Password</FormLabel>
@@ -181,6 +184,9 @@ function User_login() {
         </Box>
       </Stack>
     </Flex>
+
+</>
+
   );
 }
 

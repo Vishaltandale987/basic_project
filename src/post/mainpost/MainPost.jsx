@@ -3,14 +3,18 @@ import CreatePost from '../createPost/CreatePost'
 import Post from '../Poster/Post'
 import "./mainpost.css"
 import axios from 'axios';
+import { StageSpinner } from 'react-spinners-kit';
 
 function MainPost() {
   const [postData, setpostData] = useState([]);
+  const [loader, setloader] = useState(false)
 
   const getPost = async () => {
     try {
+      setloader(true)
       const res = await axios("https://new-facebook-server.vercel.app/post");
       setpostData(res.data);
+      setloader(false)
     } catch (error) {
       console.log(error);
     }
@@ -33,20 +37,39 @@ function MainPost() {
 
     <CreatePost getPost={getPost}/>
 
+
+    <>
+    { loader ?  <div style={{
+  position:"absolute",
+  zIndex:"1",
+  left:"38em",
+  top:"5em"
+
+}}>  
+<StageSpinner  size={60} color="orange"/>
+
+  </div>: null}
+    </>
+
+<div  style={{
+        position:"relative"
+      }}> 
+
     {
       postData?.map((el,index) => {
-
         
-          return <Post  key={index}  data={el} maingetPost={getPost}/>
         
-
+        return <Post  key={index}  data={el} maingetPost={getPost}/>
+        
+        
       }
-
-
-
+      
+      
+      
       )}
+      </div>
 
-      {/* <Post/> */}
+   
     </div>
   </div>
   )

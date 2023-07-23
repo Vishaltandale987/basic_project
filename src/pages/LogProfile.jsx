@@ -19,6 +19,7 @@ import { Link, useNavigate } from "react-router-dom";
 import CreatePost from "../post/createPost/CreatePost";
 import Post from "../post/Poster/Post";
 import axios from "axios";
+import { StageSpinner } from "react-spinners-kit";
 
 function LogProfile() {
   const navigate = useNavigate();
@@ -28,6 +29,7 @@ function LogProfile() {
 
   // console.log("image",image)
   // console.log("coverimage",coverimage)
+  const [loader, setloader] = useState(false);
 
   const [postData, setpostData] = useState();
   const [getuser, setgetuser] = useState();
@@ -86,10 +88,12 @@ function LogProfile() {
 
   const handleFollowing = async () => {
     try {
+      setloader(true)
       const res = await axios.put(
         `https://new-facebook-server.vercel.app/user/64369b857d8ec50f9b7d20e2/unfollow`,
         id
       );
+      setloader(false)
       console.log(res);
     } catch (error) {
       console.log(error);
@@ -99,10 +103,13 @@ function LogProfile() {
   //getuserdata
   const getUserData = async () => {
     try {
+      setloader(true)
       const res = await axios(
         `https://new-facebook-server.vercel.app/user/${ass}`
       );
+      
       setgetuser(res.data);
+      setloader(false)
     } catch (error) {
       console.log(error);
     }
@@ -117,6 +124,7 @@ function LogProfile() {
   // console.log("Profile_obj",Profile_obj)
 
   const handleUpdateprofileImage = async () => {
+    setloader(true)
     const data = new FormData();
     data.append("file", image);
     data.append("upload_preset", "ml_default");
@@ -142,6 +150,7 @@ function LogProfile() {
         Profile_obj
       );
       // console.log(res);
+      setloader(false)
       window.location.reload(false);
     } catch (error) {
       console.log(error);
@@ -163,6 +172,7 @@ function LogProfile() {
   // console.log("cover_obj",cover_obj)
 
   const handleUpdatecoverImage = async () => {
+    setloader(true)
     const data = new FormData();
     data.append("file", coverimage);
     data.append("upload_preset", "ml_default");
@@ -188,6 +198,7 @@ function LogProfile() {
         cover_obj
       );
       console.log(res.data);
+      setloader(false)
       window.location.reload(false);
     } catch (error) {
       console.log(error);
@@ -203,7 +214,21 @@ function LogProfile() {
 
 
   return (
-    <div>
+    <>
+        {loader ? (
+        <div
+          style={{
+            position: "absolute",
+            zIndex: "1",
+            left: "38em",
+          }}
+        >
+          <StageSpinner size={60} color="#7CB9E8" />
+        </div>
+      ) : null}
+    <div  style={{
+          position: "relative",
+        }}>
       <Container maxW="5xl" mt={10}>
         <Flex gap={6} w="100%">
           <Box w={{ base: "100%", md: "75%" }}>
@@ -424,6 +449,8 @@ function LogProfile() {
         })}
       </Container>
     </div>
+    </>
+
   );
 }
 
