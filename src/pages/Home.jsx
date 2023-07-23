@@ -27,7 +27,7 @@ function Home() {
 
 
   return (
-    <div>
+    <div >
       <Box w="88%" h="120vh" m="auto" display="flex" gap="5">
 
 
